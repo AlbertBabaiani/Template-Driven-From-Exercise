@@ -1,0 +1,381 @@
+<div class="container">
+  <h1 class="text-center fw-bold my-5">We're Hiring - Angular Developer</h1>
+
+  <form>
+    <section>
+      <h2 class="mb-3">Personal Information</h2>
+      <div class="row mb-4 gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="first_name" class="form-label"
+              >First Name <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="first_name"
+              placeholder="John"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="last_name" class="form-label"
+              >Last Name <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="last_name"
+              placeholder="Doe"
+            />
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <h3>Email Information</h3>
+        <div class="row mb-4 gy-4">
+          <div class="col-12 col-md-6">
+            <div>
+              <label for="email" class="form-label"
+                >Email <span class="text-danger">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="JohnDoe@example.com"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div>
+              <label for="confirm_email" class="form-label"
+                >Repeat Email <span class="text-danger">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="confirm_email"
+                placeholder="JohnDoe@example.com"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-4">
+        <h3>Contact Information</h3>
+
+        <div>
+          <label for="mobile_phone" class="form-label"
+            >Mobile Phone <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="mobile_phone"
+            name="mobile_phone"
+            placeholder="+995 555 55 55 55"
+          />
+        </div>
+      </section>
+
+      <section>
+        <h3>Gender <span class="text-danger">*</span></h3>
+
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="gender"
+            id="gender_male"
+            value="male"
+          />
+          <label class="form-check-label" for="gender_male">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="gender"
+            id="gender_female"
+            value="female"
+          />
+          <label class="form-check-label" for="gender_female">Female</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="gender"
+            id="gender_no"
+            value="no"
+          />
+          <label class="form-check-label" for="gender_no"
+            >Prefer not to say</label
+          >
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="gender"
+            id="gender_other"
+            value="no"
+          />
+          <label class="form-check-label" for="gender_other">Other</label>
+        </div>
+
+        <div>
+          <input
+            type="text"
+            class="form-control mt-3"
+            id="specified_gender"
+            placeholder="Specify your gender"
+          />
+        </div>
+      </section>
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2>Address</h2>
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="address" class="form-label"
+              >Address <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              placeholder="123 Main St"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="city" class="form-label"
+              >City <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              placeholder="City Name"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2 class="mb-3">Education</h2>
+
+      <div class="form-check mb-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="noEducation"
+          name="noEducation"
+        />
+        <label class="form-check-label" for="noEducation"> No Education </label>
+      </div>
+
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="degree" class="form-label">Degree</label>
+            <input
+              type="text"
+              class="form-control"
+              id="degree"
+              placeholder="Bachelor of Science in Computer Science"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="institution" class="form-label">Institution</label>
+            <input
+              type="text"
+              class="form-control"
+              id="institution"
+              placeholder="University of Example"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="eduStartDate" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="eduStartDate" />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="eduEndDate" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="eduEndDate" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-check my-4">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="stillLearning"
+          name="stillLearning"
+        />
+        <label class="form-check-label" for="stillLearning">
+          Still Learning
+        </label>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2 class="mb-3">Experience</h2>
+
+      <div class="form-check mb-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="unemployed"
+          name="unemployed"
+        />
+        <label class="form-check-label" for="unemployed"> Unemployed </label>
+      </div>
+
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="jobTitle" class="form-label">Job Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="jobTitle"
+              placeholder="Software Engineer"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="company" class="form-label">Company</label>
+            <input
+              type="text"
+              class="form-control"
+              id="company"
+              placeholder="Tech Solutions Inc."
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="startDate" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="startDate" />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="endDate" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="endDate" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-check my-4">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="stillWorking"
+          name="stillWorking"
+        />
+        <label class="form-check-label" for="stillWorking">
+          Still Working
+        </label>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2 class="mb-3">Profile Links</h2>
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="linkedin" class="form-label">LinkedIn</label>
+            <input
+              type="url"
+              class="form-control"
+              id="linkedin"
+              placeholder="https://linkedin.com/in/yourprofile"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="facebook" class="form-label">Facebook</label>
+            <input
+              type="url"
+              class="form-control"
+              id="facebook"
+              placeholder="https://facebook.com/yourprofile"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="webpage" class="form-label">Webpage</label>
+            <input
+              type="url"
+              class="form-control"
+              id="webpage"
+              placeholder="https://yourwebsite.com"
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <label for="twitter" class="form-label">X (Twitter)</label>
+            <input
+              type="url"
+              class="form-control"
+              id="twitter"
+              placeholder="https://twitter.com/yourprofile"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="form-check mt-5 mb-4">
+      <input type="checkbox" class="form-check-input" id="agreeTerms" />
+      <label class="form-check-label" for="agreeTerms"
+        >I agree to the <a href="#">Terms and Conditions</a></label
+      >
+    </div>
+
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </div>
+  </form>
+</div>
