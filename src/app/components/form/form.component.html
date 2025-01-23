@@ -1,8 +1,8 @@
 <div class="container">
   <h1 class="text-center fw-bold my-5">We're Hiring - Angular Developer</h1>
 
-  <form>
-    <section>
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <section ngModelGroup="personal_information">
       <h2 class="mb-3">Personal Information</h2>
       <div class="row mb-4 gy-4">
         <div class="col-12 col-md-6">
@@ -15,8 +15,23 @@
               class="form-control"
               id="first_name"
               placeholder="John"
+              required
+              ngModel
+              name="first_name"
+              minlength="3"
+              maxlength="20"
+              #first_name="ngModel"
             />
           </div>
+
+          @if(first_name?.hasError('required') && (first_name.touched ||
+          first_name.dirty)){
+          <span class="text-danger d-block my-1">First name is required.</span>
+          } @else if(first_name?.hasError('minlength') && first_name.touched){
+          <span class="text-danger d-block my-1"
+            >Enter at least 3 characters.</span
+          >
+          }
         </div>
 
         <div class="col-12 col-md-6">
@@ -29,8 +44,24 @@
               class="form-control"
               id="last_name"
               placeholder="Doe"
+              required
+              ngModel
+              name="last_name"
+              minlength="3"
+              maxlength="20"
+              #last_name="ngModel"
+              [ngModelOptions]="{ updateOn: 'blur' }"
             />
           </div>
+
+          @if(last_name?.hasError('required') && (last_name.touched ||
+          last_name.dirty)){
+          <span class="text-danger d-block my-1">Last name is required.</span>
+          } @else if(last_name?.hasError('minlength') && last_name.touched){
+          <span class="text-danger d-block my-1"
+            >Enter at least 3 characters.</span
+          >
+          }
         </div>
       </div>
 
@@ -47,8 +78,21 @@
                 class="form-control"
                 id="email"
                 placeholder="JohnDoe@example.com"
+                required
+                email
+                ngModel
+                name="email"
+                #email="ngModel"
               />
             </div>
+
+            @if(email?.hasError('required') && (email.touched || email.dirty)){
+            <span class="text-danger d-block my-1">Email is required.</span>
+            } @else if(email?.hasError('email') && email.touched){
+            <span class="text-danger d-block my-1"
+              >Enter a valid email address.</span
+            >
+            }
           </div>
 
           <div class="col-12 col-md-6">
@@ -61,7 +105,30 @@
                 class="form-control"
                 id="confirm_email"
                 placeholder="JohnDoe@example.com"
+                required
+                email
+                ngModel
+                name="repeat_email"
+                [appEmailValidator]="email.value ? email.value : ''"
+                #confirm_email="ngModel"
               />
+
+              @if(confirm_email?.hasError('required') && (confirm_email.touched
+              || confirm_email.dirty)){
+              <span class="text-danger d-block my-1"
+                >Email confirmation is required.</span
+              >
+              } @else if(confirm_email?.hasError('email') &&
+              confirm_email.touched){
+              <span class="text-danger d-block my-1"
+                >Enter a valid email address.</span
+              >
+              } @else if(confirm_email?.hasError('confirm_email') &&
+              confirm_email.touched){
+              <span class="text-danger d-block my-1"
+                >Both email addresses must be identical.</span
+              >
+              }
             </div>
           </div>
         </div>
@@ -75,75 +142,57 @@
             >Mobile Phone <span class="text-danger">*</span></label
           >
           <input
-            type="text"
+            type="tel"
             class="form-control"
             id="mobile_phone"
             name="mobile_phone"
-            placeholder="+995 555 55 55 55"
+            [(ngModel)]="mobile_number"
+            (input)="addDashes()"
+            placeholder="XXX-XX-XX-XX"
+            pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}"
+            required
+            maxlength="12"
+            #mobile_phone="ngModel"
           />
+
+          @if(mobile_phone?.hasError('required') && (mobile_phone.touched ||
+          mobile_phone.dirty)){
+          <span class="text-danger d-block my-1"
+            >Phone number is required.</span
+          >
+          } @else if(mobile_phone?.hasError('pattern') && mobile_phone.touched){
+          <span class="text-danger d-block my-1"
+            >Enter a valid phone number.</span
+          >
+          }
         </div>
       </section>
 
       <section>
         <h3>Gender <span class="text-danger">*</span></h3>
 
+        @for(gender_value of genders; track $index){
         <div class="form-check form-check-inline">
           <input
             class="form-check-input"
             type="radio"
             name="gender"
-            id="gender_male"
-            value="male"
+            id="gender_{{ $index }}"
+            [value]="gender_value"
+            [(ngModel)]="gender"
+            required
           />
-          <label class="form-check-label" for="gender_male">Male</label>
+          <label class="form-check-label" [for]="'gender_' + $index"
+            >{{ gender_value }}
+          </label>
         </div>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="gender"
-            id="gender_female"
-            value="female"
-          />
-          <label class="form-check-label" for="gender_female">Female</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="gender"
-            id="gender_no"
-            value="no"
-          />
-          <label class="form-check-label" for="gender_no"
-            >Prefer not to say</label
-          >
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="gender"
-            id="gender_other"
-            value="no"
-          />
-          <label class="form-check-label" for="gender_other">Other</label>
-        </div>
-
-        <div>
-          <input
-            type="text"
-            class="form-control mt-3"
-            id="specified_gender"
-            placeholder="Specify your gender"
-          />
-        </div>
+        }
       </section>
     </section>
 
     <hr class="my-5" />
 
-    <section>
+    <section ngModelGroup="address">
       <h2>Address</h2>
       <div class="row gy-4">
         <div class="col-12 col-md-6">
@@ -156,7 +205,22 @@
               class="form-control"
               id="address"
               placeholder="123 Main St"
+              ngModel
+              name="address"
+              required
+              minlength="3"
+              maxlength="20"
+              #address="ngModel"
             />
+
+            @if(address?.hasError('required') && (address.touched ||
+            address.dirty)){
+            <span class="text-danger d-block my-1">Address is required.</span>
+            } @else if(address?.hasError('minlength') && address.touched){
+            <span class="text-danger d-block my-1"
+              >Enter at least 3 characters.</span
+            >
+            }
           </div>
         </div>
 
@@ -170,7 +234,21 @@
               class="form-control"
               id="city"
               placeholder="City Name"
+              ngModel
+              name="city"
+              required
+              minlength="3"
+              maxlength="20"
+              #city="ngModel"
             />
+
+            @if(city?.hasError('required') && (city.touched || city.dirty)){
+            <span class="text-danger d-block my-1">City is required.</span>
+            } @else if(city?.hasError('minlength') && city.touched){
+            <span class="text-danger d-block my-1"
+              >Enter at least 3 characters.</span
+            >
+            }
           </div>
         </div>
       </div>
@@ -178,7 +256,7 @@
 
     <hr class="my-5" />
 
-    <section>
+    <section ngModelGroup="education">
       <h2 class="mb-3">Education</h2>
 
       <div class="form-check mb-3">
@@ -187,6 +265,8 @@
           type="checkbox"
           id="noEducation"
           name="noEducation"
+          [(ngModel)]="uneducated"
+          (change)="changeEducationStatus()"
         />
         <label class="form-check-label" for="noEducation"> No Education </label>
       </div>
@@ -194,39 +274,122 @@
       <div class="row gy-4">
         <div class="col-12 col-md-6">
           <div>
-            <label for="degree" class="form-label">Degree</label>
+            <label for="degree" class="form-label"
+              >Degree @if(!uneducated){
+              <span class="text-danger">*</span>
+              }</label
+            >
             <input
               type="text"
               class="form-control"
               id="degree"
               placeholder="Bachelor of Science in Computer Science"
+              name="degree"
+              ngModel
+              [disabled]="uneducated"
+              [required]="!uneducated"
+              minlength="3"
+              maxlength="20"
+              #degree="ngModel"
             />
+
+            @if(degree?.hasError('required') && (degree.touched ||
+            degree.dirty)){
+            <span class="text-danger d-block my-1">Degree is required.</span>
+            } @else if(degree?.hasError('minlength') && degree.touched){
+            <span class="text-danger d-block my-1"
+              >Enter at least 3 characters.</span
+            >
+            }
           </div>
         </div>
 
         <div class="col-12 col-md-6">
           <div>
-            <label for="institution" class="form-label">Institution</label>
+            <label for="institution" class="form-label"
+              >Institution @if(!uneducated){
+              <span class="text-danger">*</span>
+              }</label
+            >
             <input
               type="text"
               class="form-control"
               id="institution"
               placeholder="University of Example"
+              name="institution"
+              ngModel
+              [disabled]="uneducated"
+              [required]="!uneducated"
+              minlength="3"
+              maxlength="20"
+              #institution="ngModel"
             />
+            @if(institution?.hasError('required') && (institution.touched ||
+            institution.dirty)){
+            <span class="text-danger d-block my-1"
+              >Institution is required.</span
+            >
+            } @else if(institution?.hasError('minlength') &&
+            institution.touched){
+            <span class="text-danger d-block my-1"
+              >Enter at least 3 characters.</span
+            >
+            }
           </div>
         </div>
 
         <div class="col-12 col-md-6">
           <div>
-            <label for="eduStartDate" class="form-label">Start Date</label>
-            <input type="date" class="form-control" id="eduStartDate" />
+            <label for="eduStartDate" class="form-label"
+              >Start Date @if(!uneducated){
+              <span class="text-danger">*</span>
+              }</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="eduStartDate"
+              name="eduStartDate"
+              ngModel
+              [disabled]="uneducated"
+              [required]="!uneducated"
+              min="1900-01-01"
+              #eduStartDate="ngModel"
+            />
+
+            @if(eduStartDate?.hasError('required') && (eduStartDate.touched ||
+            eduStartDate.dirty)){
+            <span class="text-danger d-block my-1"
+              >Start date is required.</span
+            >
+            }
           </div>
         </div>
 
         <div class="col-12 col-md-6">
           <div>
-            <label for="eduEndDate" class="form-label">End Date</label>
-            <input type="date" class="form-control" id="eduEndDate" />
+            <label for="eduEndDate" class="form-label"
+              >End Date @if(!uneducated && !stillLearning){
+              <span class="text-danger">*</span>
+              }</label
+            >
+            <input
+              [type]="stillLearning ? 'text' : 'date'"
+              class="form-control"
+              id="eduEndDate"
+              name="eduEndDate"
+              ngModel
+              [disabled]="uneducated"
+              [required]="!uneducated || !stillLearning"
+              [readOnly]="stillLearning"
+              [min]="eduStartDate.value"
+              #eduEndDate="ngModel"
+            />
+
+            @if(eduEndDate?.hasError('required') && (eduEndDate.touched ||
+            eduEndDate.dirty)){
+            <span class="text-danger d-block my-1">End date is required.</span>
+            }
           </div>
         </div>
       </div>
@@ -237,6 +400,9 @@
           type="checkbox"
           id="stillLearning"
           name="stillLearning"
+          [(ngModel)]="stillLearning"
+          [disabled]="uneducated"
+          (change)="changeStillLearning()"
         />
         <label class="form-check-label" for="stillLearning">
           Still Learning
@@ -246,7 +412,7 @@
 
     <hr class="my-5" />
 
-    <section>
+    <section ngModelGroup="experience">
       <h2 class="mb-3">Experience</h2>
 
       <div class="form-check mb-3">
@@ -254,7 +420,9 @@
           class="form-check-input"
           type="checkbox"
           id="unemployed"
-          name="unemployed"
+          [(ngModel)]="unemployed"
+          (change)="changeEmploymentStatus()"
+          name="employment_status"
         />
         <label class="form-check-label" for="unemployed"> Unemployed </label>
       </div>
@@ -262,39 +430,122 @@
       <div class="row gy-4">
         <div class="col-12 col-md-6">
           <div>
-            <label for="jobTitle" class="form-label">Job Title</label>
+            <label for="jobTitle" class="form-label"
+              >Job Title @if(!unemployed){
+              <span class="text-danger">*</span>
+              }
+            </label>
             <input
               type="text"
               class="form-control"
               id="jobTitle"
               placeholder="Software Engineer"
+              [disabled]="unemployed"
+              [required]="!unemployed"
+              ngModel
+              name="jobTitle"
+              #jobTitle="ngModel"
+              minlength="3"
+              maxlength="20"
             />
+
+            @if(jobTitle?.hasError('required') && (jobTitle.touched ||
+            jobTitle.dirty)){
+            <span class="text-danger d-block my-1">Job title is required.</span>
+            } @else if(jobTitle?.hasError('minlength') && jobTitle.touched){
+            <span class="text-danger d-block my-1"
+              >Enter at least 3 characters.</span
+            >
+            }
           </div>
         </div>
 
         <div class="col-12 col-md-6">
           <div>
-            <label for="company" class="form-label">Company</label>
+            <label for="company" class="form-label"
+              >Company @if(!unemployed){
+              <span class="text-danger">*</span>
+              }</label
+            >
             <input
               type="text"
               class="form-control"
               id="company"
               placeholder="Tech Solutions Inc."
+              [disabled]="unemployed"
+              [required]="!unemployed"
+              ngModel
+              name="company"
+              minlength="3"
+              maxlength="20"
+              #company="ngModel"
             />
+
+            @if(company?.hasError('required') && (company.touched ||
+            company.dirty)){
+            <span class="text-danger d-block my-1"
+              >Company name is required.</span
+            >
+            } @else if(company?.hasError('minlength') && company.touched){
+            <span class="text-danger d-block my-1"
+              >Enter at least 3 characters.</span
+            >
+            }
           </div>
         </div>
 
         <div class="col-12 col-md-6">
           <div>
-            <label for="startDate" class="form-label">Start Date</label>
-            <input type="date" class="form-control" id="startDate" />
+            <label for="startDate" class="form-label"
+              >Start Date @if(!unemployed){
+              <span class="text-danger">*</span>
+              }</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="startDate"
+              [disabled]="unemployed"
+              [required]="!unemployed"
+              ngModel
+              name="startDate"
+              min="1900-01-01"
+              #startDate="ngModel"
+            />
+
+            @if(startDate?.hasError('required') && (startDate.touched ||
+            startDate.dirty)){
+            <span class="text-danger d-block my-1"
+              >Start date is required.</span
+            >
+            }
           </div>
         </div>
 
         <div class="col-12 col-md-6">
           <div>
-            <label for="endDate" class="form-label">End Date</label>
-            <input type="date" class="form-control" id="endDate" />
+            <label for="endDate" class="form-label"
+              >End Date @if(!unemployed && !stillWorking){
+              <span class="text-danger">*</span>
+              }</label
+            >
+            <input
+              [type]="stillWorking ? 'text' : 'date'"
+              class="form-control"
+              id="endDate"
+              ngModel
+              name="endDate"
+              [disabled]="unemployed"
+              [readonly]="stillWorking"
+              [required]="!unemployed || !stillWorking"
+              [min]="startDate.value"
+              #endDate="ngModel"
+            />
+
+            @if(endDate?.hasError('required') && (endDate.touched ||
+            endDate.dirty)){
+            <span class="text-danger d-block my-1">End date is required.</span>
+            }
           </div>
         </div>
       </div>
@@ -305,6 +556,9 @@
           type="checkbox"
           id="stillWorking"
           name="stillWorking"
+          [disabled]="unemployed"
+          [(ngModel)]="stillWorking"
+          (change)="changeStillWorking()"
         />
         <label class="form-check-label" for="stillWorking">
           Still Working
@@ -314,7 +568,7 @@
 
     <hr class="my-5" />
 
-    <section>
+    <section ngModelGroup="profile_links">
       <h2 class="mb-3">Profile Links</h2>
       <div class="row gy-4">
         <div class="col-12 col-md-6">
@@ -325,6 +579,9 @@
               class="form-control"
               id="linkedin"
               placeholder="https://linkedin.com/in/yourprofile"
+              ngModel
+              name="linkedin"
+              #linkedin="ngModel"
             />
           </div>
         </div>
@@ -337,6 +594,9 @@
               class="form-control"
               id="facebook"
               placeholder="https://facebook.com/yourprofile"
+              ngModel
+              name="facebook"
+              #facebook="ngModel"
             />
           </div>
         </div>
@@ -349,6 +609,9 @@
               class="form-control"
               id="webpage"
               placeholder="https://yourwebsite.com"
+              ngModel
+              name="webpage"
+              #webpage="ngModel"
             />
           </div>
         </div>
@@ -361,6 +624,9 @@
               class="form-control"
               id="twitter"
               placeholder="https://twitter.com/yourprofile"
+              ngModel
+              name="twitter"
+              #twitter="ngModel"
             />
           </div>
         </div>
@@ -368,14 +634,27 @@
     </section>
 
     <div class="form-check mt-5 mb-4">
-      <input type="checkbox" class="form-check-input" id="agreeTerms" />
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="agreeTerms"
+        [(ngModel)]="agreement"
+        name="agreement"
+        required
+      />
       <label class="form-check-label" for="agreeTerms"
         >I agree to the <a href="#">Terms and Conditions</a></label
       >
     </div>
 
     <div class="mb-3">
-      <button type="submit" class="btn btn-primary w-100">Submit</button>
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="btn btn-primary w-100"
+      >
+        Submit
+      </button>
     </div>
   </form>
 </div>

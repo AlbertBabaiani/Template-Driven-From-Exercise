@@ -1,0 +1,289 @@
+<div class="container">
+  <h1 class="text-center fw-bold my-5">
+    Thank you for submitting your application!
+  </h1>
+
+  <form>
+    <section>
+      <h2 class="mb-3">Personal Information</h2>
+      <div class="row mb-4 gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">First Name</h3>
+
+            <p>
+              {{ applicant()!.personal_information!.first_name }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Last Name</h3>
+
+            <p>
+              {{ applicant()!.personal_information!.last_name }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <section class="mb-4">
+        <div>
+          <h3 class="fs-5">Email Information</h3>
+
+          <p>
+            {{ applicant()!.personal_information!.email }}
+          </p>
+        </div>
+      </section>
+
+      <section class="mb-4 mt-5">
+        <h3>Contact Information</h3>
+        <div>
+          <h4 class="fs-5">Mobile Phone</h4>
+
+          <p>
+            {{ applicant()!.personal_information!.mobile_phone }}
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h3>Gender</h3>
+
+        <span class="form-check-label" for="gender_male">{{
+          applicant()!.personal_information!.gender
+        }}</span>
+      </section>
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2>Address</h2>
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Address</h3>
+
+            <p>
+              {{ applicant()!.address!.address }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">City</h3>
+
+            <p>
+              {{ applicant()!.address!.city }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2 class="mb-3">Education</h2>
+
+      @if(applicant()!.education!.noEducation){
+
+      <p>No Education</p>
+      }
+
+      <!--  -->
+
+      @if(!applicant()!.education!.noEducation){
+
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Degree</h3>
+
+            <p>
+              {{ applicant()!.education!.degree }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">First Name</h3>
+
+            <p>
+              {{ applicant()!.education!.institution }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Start Date</h3>
+
+            <p>
+              {{ applicant()!.education!.eduStartDate }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">End Date</h3>
+
+            <p>
+              {{
+                applicant()!.education!.stillLearning
+                  ? "Present"
+                  : applicant()!.education!.eduEndDate
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      }
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2 class="mb-3">Experience</h2>
+
+      @if(applicant()!.experience!.employment_status){
+
+      <p>No Experience</p>
+      }
+
+      <!--  -->
+
+      @if(!applicant()!.experience!.employment_status){
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Job Title</h3>
+
+            <p>
+              {{ applicant()!.experience!.jobTitle }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Company Name</h3>
+
+            <p>
+              {{ applicant()!.experience!.company }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Start Date</h3>
+
+            <p>
+              {{ applicant()!.experience!.startDate }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">End Date</h3>
+
+            <p>
+              {{
+                applicant()!.experience!.employment_status
+                  ? "Present"
+                  : applicant()!.experience!.endDate
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+      }
+    </section>
+
+    <hr class="my-5" />
+
+    <section>
+      <h2 class="mb-3">Profile Links</h2>
+
+      @if(applicant()!.profile_links!.linkedin === '' &&
+      applicant()!.profile_links!.facebook === '' &&
+      applicant()!.profile_links!.webpage === '' &&
+      applicant()!.profile_links!.twitter === ''){
+      <p>No profile links.</p>
+      }
+
+      <div class="row gy-4">
+        <!--  -->
+
+        @if(applicant()!.profile_links!.linkedin){
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">LinkedIn</h3>
+
+            <p>
+              {{ applicant()!.profile_links!.linkedin }}
+            </p>
+          </div>
+        </div>
+        }
+
+        <!--  -->
+
+        @if(applicant()!.profile_links!.facebook){
+
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Facebook</h3>
+
+            <p>
+              {{ applicant()!.profile_links!.facebook }}
+            </p>
+          </div>
+        </div>
+        }
+
+        <!--  -->
+
+        @if(applicant()!.profile_links!.webpage){
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">Webpage</h3>
+
+            <p>
+              {{ applicant()!.profile_links!.webpage }}
+            </p>
+          </div>
+        </div>
+        }
+
+        <!--  -->
+
+        @if(applicant()!.profile_links!.twitter){
+        <div class="col-12 col-md-6">
+          <div>
+            <h3 class="fs-5">X (Twitter)</h3>
+
+            <p>
+              {{ applicant()!.profile_links!.twitter }}
+            </p>
+          </div>
+        </div>
+        }
+      </div>
+    </section>
+
+    <div class="mb-3 mt-5">
+      <a (click)="backToHome()" class="btn btn-primary w-100">Back to home</a>
+    </div>
+  </form>
+</div>
