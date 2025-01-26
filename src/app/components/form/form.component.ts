@@ -4,6 +4,8 @@ import { EmailValidatorDirective } from './email-validator.directive';
 import { ApplicantService } from '../Services/applicant.service';
 import { Router } from '@angular/router';
 
+type Gender = 'Male' | 'Female' | 'Prefer not to say';
+
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -26,12 +28,8 @@ export class FormComponent implements OnInit {
   }
 
   // Gender options and default selection
-  genders: ['Male', 'Female', 'Prefer not to say'] = [
-    'Male',
-    'Female',
-    'Prefer not to say',
-  ];
-  gender: 'Male' | 'Female' | 'Pefer not to say' = 'Male';
+  genders: Gender[] = ['Male', 'Female', 'Prefer not to say'];
+  gender: Gender = 'Male';
 
   // Mobile number input with formatting logic
   mobile_number: string = '';
