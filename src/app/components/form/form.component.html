@@ -275,7 +275,7 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="degree" class="form-label"
-              >Degree @if(!uneducated){
+              >Degree @if(!uneducated()){
               <span class="text-danger">*</span>
               }</label
             >
@@ -286,8 +286,8 @@
               placeholder="Bachelor of Science in Computer Science"
               name="degree"
               ngModel
-              [disabled]="uneducated"
-              [required]="!uneducated"
+              [disabled]="uneducated()"
+              [required]="!uneducated()"
               minlength="3"
               maxlength="20"
               #degree="ngModel"
@@ -307,7 +307,7 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="institution" class="form-label"
-              >Institution @if(!uneducated){
+              >Institution @if(!uneducated()){
               <span class="text-danger">*</span>
               }</label
             >
@@ -318,8 +318,8 @@
               placeholder="University of Example"
               name="institution"
               ngModel
-              [disabled]="uneducated"
-              [required]="!uneducated"
+              [disabled]="uneducated()"
+              [required]="!uneducated()"
               minlength="3"
               maxlength="20"
               #institution="ngModel"
@@ -341,7 +341,7 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="eduStartDate" class="form-label"
-              >Start Date @if(!uneducated){
+              >Start Date @if(!uneducated()){
               <span class="text-danger">*</span>
               }</label
             >
@@ -351,8 +351,8 @@
               id="eduStartDate"
               name="eduStartDate"
               ngModel
-              [disabled]="uneducated"
-              [required]="!uneducated"
+              [disabled]="uneducated()"
+              [required]="!uneducated()"
               min="1900-01-01"
               #eduStartDate="ngModel"
             />
@@ -369,19 +369,19 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="eduEndDate" class="form-label"
-              >End Date @if(!uneducated && !stillLearning){
+              >End Date @if(!uneducated() && !stillLearning()){
               <span class="text-danger">*</span>
               }</label
             >
             <input
-              [type]="stillLearning ? 'text' : 'date'"
+              [type]="stillLearning() ? 'text' : 'date'"
               class="form-control"
               id="eduEndDate"
               name="eduEndDate"
               ngModel
-              [disabled]="uneducated"
-              [required]="!uneducated || !stillLearning"
-              [readOnly]="stillLearning"
+              [disabled]="uneducated()"
+              [required]="!uneducated() || !stillLearning()"
+              [readOnly]="stillLearning()"
               [min]="eduStartDate.value"
               #eduEndDate="ngModel"
             />
@@ -401,7 +401,7 @@
           id="stillLearning"
           name="stillLearning"
           [(ngModel)]="stillLearning"
-          [disabled]="uneducated"
+          [disabled]="uneducated()"
           (change)="changeStillLearning()"
         />
         <label class="form-check-label" for="stillLearning">
@@ -431,7 +431,7 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="jobTitle" class="form-label"
-              >Job Title @if(!unemployed){
+              >Job Title @if(!unemployed()){
               <span class="text-danger">*</span>
               }
             </label>
@@ -440,8 +440,8 @@
               class="form-control"
               id="jobTitle"
               placeholder="Software Engineer"
-              [disabled]="unemployed"
-              [required]="!unemployed"
+              [disabled]="unemployed()"
+              [required]="!unemployed()"
               ngModel
               name="jobTitle"
               #jobTitle="ngModel"
@@ -463,7 +463,7 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="company" class="form-label"
-              >Company @if(!unemployed){
+              >Company @if(!unemployed()){
               <span class="text-danger">*</span>
               }</label
             >
@@ -472,8 +472,8 @@
               class="form-control"
               id="company"
               placeholder="Tech Solutions Inc."
-              [disabled]="unemployed"
-              [required]="!unemployed"
+              [disabled]="unemployed()"
+              [required]="!unemployed()"
               ngModel
               name="company"
               minlength="3"
@@ -497,7 +497,7 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="startDate" class="form-label"
-              >Start Date @if(!unemployed){
+              >Start Date @if(!unemployed()){
               <span class="text-danger">*</span>
               }</label
             >
@@ -505,8 +505,8 @@
               type="date"
               class="form-control"
               id="startDate"
-              [disabled]="unemployed"
-              [required]="!unemployed"
+              [disabled]="unemployed()"
+              [required]="!unemployed()"
               ngModel
               name="startDate"
               min="1900-01-01"
@@ -525,19 +525,19 @@
         <div class="col-12 col-md-6">
           <div>
             <label for="endDate" class="form-label"
-              >End Date @if(!unemployed && !stillWorking){
+              >End Date @if(!unemployed() && !stillWorking()){
               <span class="text-danger">*</span>
               }</label
             >
             <input
-              [type]="stillWorking ? 'text' : 'date'"
+              [type]="stillWorking() ? 'text' : 'date'"
               class="form-control"
               id="endDate"
               ngModel
               name="endDate"
-              [disabled]="unemployed"
-              [readonly]="stillWorking"
-              [required]="!unemployed || !stillWorking"
+              [disabled]="unemployed()"
+              [readonly]="stillWorking()"
+              [required]="!unemployed() || !stillWorking()"
               [min]="startDate.value"
               #endDate="ngModel"
             />
@@ -556,7 +556,7 @@
           type="checkbox"
           id="stillWorking"
           name="stillWorking"
-          [disabled]="unemployed"
+          [disabled]="unemployed()"
           [(ngModel)]="stillWorking"
           (change)="changeStillWorking()"
         />

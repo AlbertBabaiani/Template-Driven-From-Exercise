@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, viewChild } from '@angular/core';
+import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EmailValidatorDirective } from './email-validator.directive';
 import { ApplicantService } from '../Services/applicant.service';
@@ -29,17 +29,17 @@ export class FormComponent implements OnInit {
 
   // Gender options and default selection
   genders: Gender[] = ['Male', 'Female', 'Prefer not to say'];
-  gender: Gender = 'Male';
+  gender = signal<Gender>('Male');
 
   // Mobile number input with formatting logic
-  mobile_number: string = '';
+  mobile_number = signal<string>('');
 
   /**
    * Adds dashes to the mobile number at appropriate positions.
    * Automatically formats the number as "XXX-XXX-XXXX".
    */
   addDashes() {
-    let mobile = this.mobile_number.trim();
+    let mobile = this.mobile_number().trim();
 
     if (mobile.length === 4 && mobile[3] === '-') {
       // Removes the extra dash if already present
@@ -71,18 +71,18 @@ export class FormComponent implements OnInit {
       mobile = `${mobile.slice(0, 6)}-${mobile.slice(7, 9)}-${mobile.slice(9)}`;
     }
 
-    this.mobile_number = mobile;
+    this.mobile_number.set(mobile);
   }
 
   // Education and employment status flags
-  uneducated: boolean = false;
-  stillLearning: boolean = false;
+  uneducated = signal<boolean>(false);
+  stillLearning = signal<boolean>(false);
 
-  unemployed: boolean = false;
-  stillWorking: boolean = false;
+  unemployed = signal<boolean>(false);
+  stillWorking = signal<boolean>(false);
 
   // Agreement checkbox flag
-  agreement: boolean = false;
+  agreement = signal<boolean>(false);
 
   // Gets the education form controls
   private get educationControls() {
@@ -99,7 +99,7 @@ export class FormComponent implements OnInit {
    * Clears degree-related fields and resets the "stillLearning" flag.
    */
   changeEducationStatus() {
-    if (this.uneducated) {
+    if (this.uneducated()) {
       this.educationControls?.patchValue({
         degree: '',
         institution: '',
@@ -108,7 +108,7 @@ export class FormComponent implements OnInit {
         stillLearning: '',
       });
 
-      this.stillLearning = false;
+      this.stillLearning.set(false);
     }
   }
 
@@ -119,7 +119,7 @@ export class FormComponent implements OnInit {
   changeStillLearning() {
     setTimeout(() => {
       this.educationControls?.patchValue({
-        eduEndDate: this.stillLearning ? 'Present' : '',
+        eduEndDate: this.stillLearning() ? 'Present' : '',
       });
     });
   }
@@ -129,7 +129,7 @@ export class FormComponent implements OnInit {
    * Clears job-related fields and resets the "stillWorking" flag.
    */
   changeEmploymentStatus() {
-    if (this.unemployed) {
+    if (this.unemployed()) {
       this.employmentControls?.patchValue({
         jobTitle: '',
         company: '',
@@ -138,7 +138,7 @@ export class FormComponent implements OnInit {
         stillWorking: '',
       });
 
-      this.stillWorking = false;
+      this.stillWorking.set(false);
     }
   }
 
@@ -149,7 +149,7 @@ export class FormComponent implements OnInit {
   changeStillWorking() {
     setTimeout(() => {
       this.employmentControls?.patchValue({
-        endDate: this.stillWorking ? 'Present' : '',
+        endDate: this.stillWorking() ? 'Present' : '',
       });
     });
   }
